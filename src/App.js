@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import './App.css'
 import TodoInput from './components/todoinput'
 import TodoList from './components/todolist'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -61,6 +62,7 @@ class App extends Component {
     })
   }
   
+
   render(){
   return (
     <div className="container">
@@ -71,11 +73,13 @@ class App extends Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             editItems={this.state.editItems}/>
+
             <TodoList 
             items={this.state.items} 
             clearList={this.clearList}
             delItem={this.delItem}
             edtItem={this.edtItem}/>
+
         </div>
       </div>
     </div>
