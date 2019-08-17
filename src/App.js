@@ -6,12 +6,25 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import uuid from 'uuid'
 
 class App extends Component {
-  state = {
-    items: [],
-    id:uuid(),
-    item:"",
-    editItems:false
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      items: this.checkEmpty(),
+      id:uuid(),
+      item:"",
+      editItems:false
+    };
+//localStorage.setItem(11,JSON.stringify(fruits))
+  }
+ 
+  checkEmpty = () => {
+    let locStorage = JSON.parse(localStorage.getItem("to-do-react"))
+    if(localStorage.getItem('to-do-react') === null) {
+      return []
+    }else{
+      return locStorage
+    }
+  }
 
   handleChange = e => {
     this.setState({
@@ -26,8 +39,11 @@ class App extends Component {
       id : this.state.id,
       title : this.state.item
     }
-
+    console.log(newItem);
+    
+    //set for local
     const updatedItems = [...this.state.items, newItem]
+    localStorage.setItem("to-do-react",JSON.stringify(updatedItems))
 
     this.setState({
       items:updatedItems,
@@ -37,17 +53,27 @@ class App extends Component {
     })
   }
 
+  componentDidMount(){
+    fetch('http://dummy.restapiexample.com/api/v1/employees')
+    .then(response => 
+      response.json()
+    )
+    .then(res => console.log(res))
+  }
+
   clearList = () => {
     this.setState({
       items:[]
     })
   }
 
+  //dlete button
   delItem = (id) => {
     const filteredItem = this.state.items.filter(item => item.id !== id)
     this.setState({
       items:filteredItem
     })
+    localStorage.removeItem(id);
   }
 
   edtItem = id => {
@@ -58,7 +84,7 @@ class App extends Component {
       items:filteredItem,
       item:selectedItem.title,
       editItems:true,
-      id:id
+      id    
     })
   }
   
