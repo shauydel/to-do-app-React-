@@ -5,7 +5,7 @@ export default class TodoItems extends Component {
         const {title, delItem, edtItem} = this.props
         return (
             <li className="list-group-item text-capitalize d-flex justify-content-between my-2">
-                <input type="checkbox"/><label>{title}</label>
+               <div><input type="checkbox"/><label>{title}</label></div>
                 <div className="todo-icon">
                    <span className="mx-2 text-success" onClick={edtItem}>
                        <i className="fas fa-edit"></i>

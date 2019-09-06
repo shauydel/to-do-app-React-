@@ -65,6 +65,7 @@ class App extends Component {
     this.setState({
       items:[]
     })
+    localStorage.clear();
   }
 
   //dlete button
@@ -73,7 +74,7 @@ class App extends Component {
     this.setState({
       items:filteredItem
     })
-    localStorage.removeItem(id);
+    localStorage.setItem("to-do-react",JSON.stringify(filteredItem))
   }
 
   edtItem = id => {
